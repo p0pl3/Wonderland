@@ -11,7 +11,7 @@
           <h2 class="product__price">300 $</h2>
           <div class="product__controls">
             <button v-if="this.product_count===0" class="buy__button" @click="this.product_count+=1">
-              <h>Add to card</h>
+              <h>Add to cart</h>
               <img class="cart__image" src="@/assets/cart.svg">
             </button>
             <div v-if="this.product_count>0" class="product__counter">
@@ -96,6 +96,7 @@ p {
 
 .product__container {
   display: flex;
+  flex-direction: row-reverse;
   align-items: start;
   justify-content: space-between;
   margin: 0 0 20px 0;
@@ -103,13 +104,13 @@ p {
 }
 
 .product__gallery {
-  width: 59%;
+  width: 50%;
   position: sticky;
   top: 10px;
 }
 
 .product__info {
-  width: 39%;
+  width: 45%;
 }
 
 .product__controls {

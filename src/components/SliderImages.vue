@@ -1,15 +1,7 @@
 <template>
   <div class="slider__horizontal">
-    <div class="images__preview">
-      <input type="radio" id="slide1" @click='this.currentSlide=0'>
-      <label for="slide1" :class="{input__checked: this.currentSlide===0}"><img src="@/assets/product_1.jpeg"></label>
-      <input type="radio" id="slide2" @click="this.currentSlide=1">
-      <label for="slide2" :class="{input__checked: this.currentSlide===1}"><img src="@/assets/product_1.jpeg"></label>
-      <input type="radio" id="slide3" @click="this.currentSlide=2">
-      <label for="slide3" :class="{input__checked: this.currentSlide===2}"><img src="@/assets/product_1.jpeg"></label>
-    </div>
     <div class="slider">
-      <a @click="prevSlide">
+      <a @click="prevSlide" class="button__prev">
         <img src="@/assets/arrow_back.svg" style="width: 30px; height: 30px">
       </a>
       <div class="slider__list">
@@ -26,6 +18,14 @@
       <a @click="nextSlide" class="button__next">
         <img src="@/assets/arrow_forward.svg" style="width: 30px; height: 30px">
       </a>
+    </div>
+    <div class="images__preview">
+      <input type="radio" id="slide1" @click='this.currentSlide=0'>
+      <label for="slide1" :class="{input__checked: this.currentSlide===0}"><img src="@/assets/product_1.jpeg"></label>
+      <input type="radio" id="slide2" @click="this.currentSlide=1">
+      <label for="slide2" :class="{input__checked: this.currentSlide===1}"><img src="@/assets/product_1.jpeg"></label>
+      <input type="radio" id="slide3" @click="this.currentSlide=2">
+      <label for="slide3" :class="{input__checked: this.currentSlide===2}"><img src="@/assets/product_1.jpeg"></label>
     </div>
   </div>
 </template>
@@ -74,13 +74,15 @@ $base-background-white: rgb(137, 6, 222);
 $base-grey: rgba(75, 75, 75, 0.9);
 
 .button__next {
-  position: absolute;
-  margin-left: 430px;
+}
+
+.button__prev{
+
 }
 
 .slider__horizontal {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
   align-items: center;
 }
 
@@ -88,11 +90,16 @@ input {
   display: none;
 }
 
+.images__preview{
+  display: flex;
+}
+
 .images__preview > label {
   display: block;
   cursor: pointer;
   padding: 5px;
   width: 135px;
+  margin: 7px;
 }
 
 .input__checked {
@@ -107,15 +114,12 @@ input {
 .slider {
   display: flex;
   align-items: center;
-  width: 460px;
 }
 
 .slider__list {
   display: flex;
   overflow: hidden;
   width: 400px;
-  position: absolute;
-  margin-left: 30px;
 }
 
 .slider__item > img {
@@ -132,9 +136,6 @@ input {
   }
   .slider__item > img {
     width: 240px;
-  }
-  .button__next {
-    margin-left: 270px;
   }
   .slider {
     width: 300px;

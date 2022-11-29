@@ -11,7 +11,7 @@ import SignUpView from "@/views/SignView";
 
 const routes = [
     {
-        path: "/",
+        path: "/Wonderland",
         name: "HomeView",
         component: HomeView,
     },
