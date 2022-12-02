@@ -17,7 +17,7 @@
             <div v-if="this.product_count>0" class="product__counter">
               <span class="product__counter-minus" @click="this.product_count-=1">-</span>
               <router-link :to="{name: 'ProductsCart'}" class="product__counter-center">
-                <p style="font-size: 14px">In cart {{ this.product_count }} шт</p>
+                <p style="font-size: 14px">In cart {{ this.product_count }} pc</p>
                 <p style="font-size: 12px"> Go to cart</p>
               </router-link>
               <span class="product__counter-plus" @click="this.product_count+=1">+</span>

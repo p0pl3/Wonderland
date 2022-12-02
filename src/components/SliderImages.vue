@@ -73,13 +73,6 @@ $base-background: rgb(92, 0, 150);
 $base-background-white: rgb(137, 6, 222);
 $base-grey: rgba(75, 75, 75, 0.9);
 
-.button__next {
-}
-
-.button__prev{
-
-}
-
 .slider__horizontal {
   display: flex;
   flex-direction: column;
