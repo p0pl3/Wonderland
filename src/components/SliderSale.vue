@@ -20,7 +20,7 @@ export default {
   name: "SliderSale",
   data() {
     return {
-      sliderSaleImages: ["https://www.alt-msk.ru/upload/sale/a-discount-2986181_1920.jpg",
+      sliderSaleImages: ["https://img.freepik.com/free-vector/winter-sale-fifty-percent-off-lettering_1262-8082.jpg?w=1800&t=st=1670678736~exp=1670679336~hmac=3eda5311dc470efe93923f30b4eadb1b89d24deb3b92086d0e94e4308965e75a",
         "https://i.pinimg.com/originals/00/d0/8c/00d08c16313e2ccc8fd8d8283e755fbb.png"],
       currentSliderSaleImages: 0,
     }
