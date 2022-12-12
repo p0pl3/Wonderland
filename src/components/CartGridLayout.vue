@@ -94,7 +94,6 @@ $base-grey: rgba(75, 75, 75, 0.9);
 }
 
 .cart__products {
-  padding: 10px;
   width: 66%;
   border-radius: 15px;
 }

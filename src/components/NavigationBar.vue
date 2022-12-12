@@ -29,7 +29,7 @@
               <router-link :to="{ name: 'ProductsCatalog'}" class="navbar__menuitem" role="menuitem"
                            :class="{'navbar__menuitem--toggled': isOpenBurger}" v-for="i in (1,2,3,4,5,6,7,8,9)"
                            :key="{i}" style="align-items: center">
-                <img src="@/assets/shoes.svg" style="width: 30px; height: 30px; margin-right: 20px">
+                <img src="@/assets/category-white.svg" style="width: 30px; height: 30px; margin-right: 20px">
                 <h4 style="margin: 0;">Toy</h4>
               </router-link>
             </div>
@@ -43,7 +43,7 @@
           <div class="slider__categories" ref="sliderCategory">
             <div class="slider__item" v-for="i in (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16)" :key="{i}">
               <router-link :to="{ name: 'ProductsCatalog'}">
-                <img src="@/assets/shoes.svg" style="width: 40%; height: 40%;">
+                <img src="@/assets/category.svg" style="width: 40%; height: 40%;">
               </router-link>
               <h4>Toy</h4>
             </div>

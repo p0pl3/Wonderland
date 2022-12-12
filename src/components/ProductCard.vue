@@ -79,7 +79,7 @@ $base-grey: rgba(75, 75, 75, 0.9);
 }
 
 .cart__image:hover {
-  background: #2196F3;
+  background: rgba(137, 6, 222, 0.8);
 }
 
 .product__counter {

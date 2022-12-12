@@ -65,10 +65,6 @@
         <div class="footer__logo">
           <h2> Wonderland</h2>
         </div>
-        <div class="footer__payment">
-          <img src="@/assets/mc.svg" style="width: 30px; height: 30px; margin-right: 10px">
-          <img src="@/assets/mir.svg" style="width: 30px; height: 30px;">
-        </div>
       </div>
     </div>
   </footer>
