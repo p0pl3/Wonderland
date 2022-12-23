@@ -28,7 +28,7 @@ export default {
 
 @media (max-width: 600px) {
   .banner__image {
-    height: 280px;
+    height: 290px;
   }
 }
 </style>

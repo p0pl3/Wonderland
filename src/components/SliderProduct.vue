@@ -2,7 +2,7 @@
   <div class="product__slider__horizontal">
     <div class="container">
       <div class="product__slider-title">
-        <h4>Toys</h4>
+        <h4>{{ title }}</h4>
         <div class="product__slider-control">
           <a @click="previousProductHorizontalSlider">
             <img src="@/assets/arrow_back.svg" style="width: 20px; height: 20px">
@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class="product__list" ref="ProductListHorizontalSlider">
-        <ProductCard v-for="i in (1, 2, 3,4, 5, 6)" :key="{i}"/>
+        <ProductCard v-for="product in products" :key="product.id" :product="product"/>
       </div>
     </div>
   </div>
@@ -21,10 +21,17 @@
 
 <script>
 import ProductCard from "@/components/ProductCard";
+import {mapState} from 'vuex'
 
 export default {
   name: "SliderProduct",
+  props: {
+    title: String
+  },
   components: {ProductCard},
+  computed: mapState({
+    products: state => state.products.all
+  }),
   methods: {
     nextProductHorizontalSlider: function () {
       this.$refs.ProductListHorizontalSlider.scrollTo({
@@ -37,8 +44,11 @@ export default {
         left: this.$refs.ProductListHorizontalSlider.scrollLeft - 320,
         behavior: 'smooth'
       })
-    },
+    }
   },
+  created() {
+    this.$store.dispatch('products/getAllProducts')
+  }
 }
 </script>
 

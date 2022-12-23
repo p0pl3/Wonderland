@@ -5,25 +5,31 @@
         <h2>Cart</h2>
       </div>
       <div class="cart__article">
-        <div class="cart__products">
-          <CartProductItem v-for="i in (1,2,3)" :key="i"/>
+        <p v-show="!products.length">
+          <i>Please add some products to cart.</i>
+        </p>
+        <div v-show="products.length" class="cart__products">
+          <CartProductItem v-for="product in products" :key="product.id" :product="product"/>
         </div>
-        <div class="cart__info">
-          <div class="cart__promo">
-            <p class="cart__promo-placeholder">Enter promocode</p>
-            <input class="cart__promo-input" placeholder="Promo">
-          </div>
-          <div class="cart__description-price">
+        <div class="cart__info" v-show="products.length">
+          <div class="cart__description-price" >
             <div class="cart__description-title">
               <p>Products (3) </p>
-              <p>1270$ </p>
+              <p>{{ currency(total) }}$ </p>
             </div>
             <div class="cart__description-title">
-              <p>Total price: </p>
-              <p>1570$ </p>
+              <p>Discount</p>
+              <p style="color: red">{{ currency(new_total - total) }}$ </p>
+            </div>
+            <div class="cart__description-title">
+              <p style="font-size: 24px">Total</p>
+              <p style="font-size: 30px">{{ currency(new_total) }}$ </p>
             </div>
           </div>
-          <router-link class="cart__info__confirm-order" :to="{ name: 'confirmOrder'}">Checkout</router-link>
+          <router-link  class="cart__info__confirm-order" :disabled="!products.length" :to="{ name: 'confirmOrder'}">Checkout</router-link>
+          <div class="cart__promo">
+            <input class="cart__promo-input" placeholder="promo code">
+          </div>
         </div>
       </div>
     </div>
@@ -32,10 +38,29 @@
 
 <script>
 import CartProductItem from "@/components/CartProductItem";
+import {mapActions, mapGetters, mapState} from 'vuex'
+import {currency} from '@/currency'
 
 export default {
   name: "CartGrid",
-  components: {CartProductItem}
+  components: {CartProductItem},
+  computed: {
+    ...mapState({
+      checkoutStatus: state => state.cart.checkoutStatus
+    }),
+    ...mapGetters('cart', {
+      products: 'cartProducts',
+      total: 'cartTotalPrice',
+      new_total: 'cartTotalNewPrice'
+    })
+  },
+  methods: {
+    currency,
+    ...mapActions({
+          checkout: 'cart/checkout'
+        }
+    )
+  }
 }
 </script>
 
@@ -53,6 +78,7 @@ $base-grey: rgba(75, 75, 75, 0.9);
 .cart__description-title {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .cart__promo {
@@ -68,7 +94,7 @@ $base-grey: rgba(75, 75, 75, 0.9);
   display: block;
   text-align: center;
   font-size: 26px;
-  margin-top: 10px;
+  margin: 10px 0;
   width: 100%;
   padding: 10px;
   background: $base-background-white;

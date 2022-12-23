@@ -72,10 +72,7 @@
 
 <script>
 export default {
-  name: "FooterBar",
-  data(){
-
-  }
+  name: "FooterBar"
 }
 </script>
 

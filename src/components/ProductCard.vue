@@ -2,26 +2,27 @@
   <div class="product" ref="Product">
     <div class="product__image">
       <router-link :to="{name: 'ProductView'}">
-        <img src="@/assets/product_1.jpeg" style="border-radius: 15px; width: 100%;">
+        <img :src="require(`@/assets/product_${product.id}.jpeg`)" style="border-radius: 15px; width: 100%;">
       </router-link>
     </div>
     <div class="product__description">
       <router-link :to="{name: 'ProductView'}" class="product__title">
-        <h3>Plush owl</h3>
+        <h3>{{ product.title }}</h3>
       </router-link>
       <div class="product__price">
-        <div v-if="this.product_count===0" class="prices">
-          <h4 class="new__price">210$</h4>
-          <h4 class="old__price">453$</h4>
+        <div v-if="!inCart" class="prices">
+          <h4 class="new__price">{{ currency(product.new_price) }}$</h4>
+          <h4 class="old__price">{{ currency(product.price) }}$</h4>
         </div>
-        <img v-if="this.product_count===0" class="cart__image" src="@/assets/cart-black.svg" @click="this.product_count+=1">
-        <div v-if="this.product_count>0" class="product__counter">
-          <span class="product__counter-minus" @click="this.product_count-=1">&#8211;</span>
+        <img v-if="!inCart" class="cart__image" src="@/assets/cart-black.svg"
+             @click="addProductToCart(product)">
+        <div v-if="inCart" class="product__counter">
+          <span class="product__counter-minus" @click="decrementItemQuantity(product)">&#8211;</span>
           <router-link :to="{name: 'ProductsCart'}" class="product__counter-center">
-            <p style="font-size: 14px">{{ "In cart " + this.product_count + " pc" }}</p>
+            <p style="font-size: 14px">In cart {{ productQuantity }} pc</p>
             <p style="font-size: 12px"> Go to cart</p>
           </router-link>
-          <span class="product__counter-plus" @click="this.product_count+=1">+</span>
+          <span class="product__counter-plus" @click="incrementItemQuantity(product)">+</span>
         </div>
       </div>
     </div>
@@ -36,16 +37,28 @@
 
 <script>
 import WishButton from "@/components/WishButton";
+import {mapActions} from "vuex";
+import {currency} from "@/currency";
 
 export default {
-
+  props: ["product"],
   name: "ProductCard",
   components: {WishButton},
-  data() {
-    return {
-      product_count: 0,
+  computed: {
+    inCart() {
+      return this.$store.state.cart.items.find(item => item.id === this.product.id)
+    },
+    productQuantity() {
+      return this.$store.state.cart.items.find(item => item.id === this.product.id).quantity
     }
+  },
+  methods: {
+    ...mapActions('cart', [
+      'decrementItemQuantity', 'addProductToCart', 'incrementItemQuantity'
+    ]),
+    currency
   }
+  ,
 }
 </script>
 
@@ -89,6 +102,10 @@ $base-grey: rgba(75, 75, 75, 0.9);
   border-radius: 10px;
   font-size: 20px;
   height: 44px;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 
   p {
     margin: 0;
@@ -157,6 +174,7 @@ $base-grey: rgba(75, 75, 75, 0.9);
   display: flex;
   position: relative;
   flex-direction: column;
+  justify-content: space-between;
   background: white;
   border-radius: 15px;
   max-width: 300px;

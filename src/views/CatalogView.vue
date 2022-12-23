@@ -11,10 +11,13 @@
           <option value="popular">Up price</option>
         </select>
       </div>
+      <div class="popular__toys">
+        <slider-product title="Popular" style="margin: 0 -15px"/>
+      </div>
       <div class="products__article">
         <div class="products-catalog__filter">
           <div class="filter__category">
-            <h4 style="margin-top: 0px;">Categories</h4>
+            <h4 style="margin-top: 0;">Categories</h4>
             <ul>
               <li><a href="#">For boys</a></li>
               <li><a href="#">For girls</a></li>
@@ -72,7 +75,7 @@
           </div>
         </div>
         <div class="product-catalog__grip">
-          <ProductCard v-for="i in (1, 2, 3,4, 5, 6,7,8,9,10,11,12)" :key="i" class="product__grid"/>
+          <ProductCard v-for="product in products" :key="product.id" :product="product"/>
         </div>
       </div>
     </div>
@@ -82,10 +85,23 @@
 <script>
 import UpButtonPage from "@/components/UpButtonPage";
 import ProductCard from "@/components/ProductCard";
+import SliderProduct from "@/components/SliderProduct";
+import {mapActions, mapState} from "vuex";
 
 export default {
   name: "ProductsCatalog",
-  components: {ProductCard, UpButtonPage}
+  components: {ProductCard, UpButtonPage, SliderProduct},
+  computed: mapState({
+    products: state => state.products.all
+  }),
+  methods:{
+    ...mapActions('cart', [
+      'addProductToCart'
+    ])
+  },
+  created() {
+    this.$store.dispatch('products/getAllProducts')
+  }
 }
 </script>
 
@@ -122,7 +138,7 @@ export default {
 
 h4 {
   font-size: 22px;
-  margin: 25px 0px 10px 0px;
+  margin: 10px 0;
 }
 
 .filter__price-range {
@@ -183,6 +199,10 @@ h4 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  h2 {
+    margin: 10px 0;
+  }
 }
 
 ul {

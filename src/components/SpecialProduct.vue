@@ -1,27 +1,27 @@
 <template>
   <div class="special__product">
-    <div class="container" >
+    <div class="container">
       <div class="special__product-title">
         <h4>Toys</h4>
-        <div class="special__product__slider-control" >
+        <div class="special__product__slider-control">
           <a @click="previousProductHorizontalSlider">
-            <img src="@/assets/arrow_back.svg" style="width: 20px; height: 20px" >
+            <img src="@/assets/arrow_back.svg" style="width: 20px; height: 20px">
           </a>
-          <a @click="nextProductHorizontalSlider" >
-            <img src="@/assets/arrow_forward.svg" style="width: 20px; height: 20px" >
+          <a @click="nextProductHorizontalSlider">
+            <img src="@/assets/arrow_forward.svg" style="width: 20px; height: 20px">
           </a>
         </div>
       </div>
-      <div class="special__product-wrapper" :style="{flexDirection: direction}" >
+      <div class="special__product-wrapper" :style="{flexDirection: direction}">
         <div class="special__product-banner">
           <SpecialBannerItem/>
         </div>
         <div class="special__product__list" ref="ProductListHorizontalSlider">
           <SpecialBannerItem class="banner-hidden"/>
-          <ProductCard class="product__item-hidden" v-for="i in (1, 2, 3, 4, 5, 6)" :key="{i}"/>
-          <div class="product__item-slide" v-for="i in (1, 2, 3, 4, 5, 6)" :key="{i}" >
-            <ProductCard/>
-            <ProductCard/>
+          <ProductCard class="product__item-hidden" v-for="product in products" :key="product.id" :product="product"/>
+          <div class="product__item-slide" v-for="product in products" :key="product.id">
+            <ProductCard :product="product"/>
+            <ProductCard :product="product"/>
           </div>
         </div>
       </div>
@@ -33,6 +33,7 @@
 <script>
 import ProductCard from "@/components/ProductCard";
 import SpecialBannerItem from "@/components/ExtraBannerItem";
+import {mapState} from "vuex";
 
 export default {
   name: "SpecialProduct",
@@ -40,6 +41,9 @@ export default {
     direction: String
   },
   components: {ProductCard, SpecialBannerItem},
+  computed: mapState({
+    products: state => state.products.all
+  }),
   methods: {
     nextProductHorizontalSlider: function () {
       this.$refs.ProductListHorizontalSlider.scrollTo({
@@ -53,7 +57,11 @@ export default {
         behavior: 'smooth'
       })
     }
+  },
+  created() {
+    this.$store.dispatch('products/getAllProducts')
   }
+
 }
 </script>
 
@@ -110,11 +118,15 @@ export default {
   margin: 10px 5px;
   max-width: 200px;
   min-width: 200px;
+  height: 352px;
 }
-.product .count_pc{
+
+
+.product .count_pc {
   display: none !important;
 }
-.product .count_mob{
+
+.product .count_mob {
   display: block !important;
 }
 
@@ -135,6 +147,7 @@ export default {
   }
   .product {
     min-width: 160px;
+    height: 290px;
   }
 }
 </style>

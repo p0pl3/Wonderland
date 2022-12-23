@@ -36,7 +36,12 @@ export default {
   data() {
     return {
       currentSlide: 0,
-      currentWidth: 0
+      currentWidth: 0,
+      product:{
+        title:"Plush owl",
+        price:100,
+        new_price:90,
+      }
     }
   },
   computed: {

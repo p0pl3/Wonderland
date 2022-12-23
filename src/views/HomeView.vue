@@ -1,10 +1,10 @@
 <template>
   <UpButtonPage/>
   <SliderSale/>
-  <SpecialProduct direction="row-reverse"/>
-  <SliderProduct/>
   <InfoBanner/>
-  <SliderProduct/>
+  <SpecialProduct direction="row-reverse"/>
+  <SliderProduct title="Toys"/>
+  <SpecialProduct/>
   <SliderBanner/>
 </template>
 <script>

@@ -5,22 +5,22 @@
       <div class="basket">
         <h1 class="basket__title">Your Order</h1>
         <div class="basket__item-list">
-          <BasketItem/>
+          <OrderCartItem v-for="product in products" :key="product.id" :product="product"/>
         </div>
         <div class="basket__subtotal">
           <div class="basket__subtotal-item">
             <div class="basket__subtotal-title">Amount by goods</div>
-            <h6 class="basket__subtotal-price">1000$</h6>
+            <h6 class="basket__subtotal-price">{{ currency(new_total) }}$</h6>
           </div>
           <div class="basket__subtotal-item">
             <div class="basket__subtotal-title">Amount by delivery</div>
-            <h6 class="basket__subtotal-price">300$</h6>
+            <h6 class="basket__subtotal-price">{{ deliveryPrice }}$</h6>
           </div>
 
         </div>
         <div class="basket__total">
-          <div class="basket__total-title">Total:</div>
-          <h6 class="basket__total-price">1300$</h6>
+          <div class="basket__total-title">Total</div>
+          <h6 class="basket__total-price">{{ currency(new_total + deliveryPrice) }}$</h6>
         </div>
       </div>
       <div class="order">
@@ -105,7 +105,8 @@
               </div>
             </label>
           </div>
-          <button class="confirm__order">Confirm the order</button>
+          <button class="confirm__order" :disabled="!products.length" @click="checkout(products)">Confirm the order</button>
+          <p v-if="checkoutStatus">{{ checkoutStatus }}</p>
         </div>
       </div>
 
@@ -115,15 +116,40 @@
 
 <script>
 import UpButtonPage from "@/components/UpButtonPage";
-import BasketItem from "@/components/CartItem";
+import OrderCartItem from "@/components/OderCartItem";
+import {mapActions, mapGetters, mapState} from "vuex";
+import {currency} from "@/currency";
 
 export default {
   name: "OrderView",
-  components: {UpButtonPage, BasketItem},
+  components: {UpButtonPage, OrderCartItem},
   data() {
     return {
-      picked: "pickup"
+      picked: "pickup",
     }
+  },
+  computed: {
+    deliveryPrice() {
+      if (this.picked === "pickup") {
+        return 0
+      } else {
+        return 300
+      }
+    },
+    ...mapState({
+      checkoutStatus: state => state.cart.checkoutStatus
+    }),
+    ...mapGetters('cart', {
+      products: 'cartProducts',
+      new_total: 'cartTotalNewPrice'
+    })
+  },
+  methods: {
+    currency,
+    ...mapActions({
+          checkout: 'cart/checkout',
+        }
+    )
   }
 }
 </script>
