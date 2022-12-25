@@ -1,12 +1,15 @@
 <template>
   <div class="banner__item">
-      <img src="@/assets/banner_1.jpeg" class="banner__image">
+      <img :src="require(`@/assets/${img}.jpeg`)" class="banner__image">
   </div>
 </template>
 
 <script>
 export default {
-  name: "BannerItem"
+  name: "BannerItem",
+  props: {
+    img: String
+  }
 }
 </script>
 

@@ -2,7 +2,8 @@
   <div class="info__banner">
     <div class="container">
       <div class="banner__list" >
-        <BannerItem v-for="i in (1, 2, 3,4, 5, 6)" :key="{i}"/>
+        <BannerItem v-for="i in (1, 2, 3)" :key="{i}" img="banner_1"/>
+        <BannerItem v-for="i in (1, 2, 3)" :key="{i}" img="banner_4"/>
       </div>
     </div>
   </div>
